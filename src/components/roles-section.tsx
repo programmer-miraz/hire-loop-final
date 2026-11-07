@@ -23,11 +23,11 @@ export default function RolesSection() {
       </h2>
 
       {/* Job cards — all data comes from src/data/roles.json */}
-      <div className="mx-auto mt-12 grid max-w-5xl gap-4 md:grid-cols-3">
+      <div className="mx-auto mt-12 grid max-w-5xl gap-5 md:grid-cols-3">
         {roles.map((role) => (
           <div
             key={role.id}
-            className="flex flex-col rounded-xl border border-white/10 bg-[#0c0c0f] p-4"
+            className="flex flex-col rounded-xl gap-y-2 border border-white/10 bg-[#0c0c0f] py-8 px-4"
           >
             <h3 className="text-sm font-semibold text-white">{role.title}</h3>
             <p className="mt-2 text-xs leading-relaxed text-neutral-500">

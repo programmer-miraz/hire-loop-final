@@ -1,9 +1,11 @@
 "use client";
-import logo from"../../public/images/logo.png"
+import logo from "../../public/images/logo.png"
 import { useState } from "react";
 import Link from "next/link";
 import { Infinity as InfinityIcon, Menu, X } from "lucide-react";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 // Every link shown inside the navbar (desktop + mobile)
 const links = [
@@ -19,7 +21,22 @@ function linkClass(extra = "") {
 
 export default function Navber() {
   // true = mobile menu is open, false = closed
+  const router = useRouter()
   const [open, setOpen] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+  const userSession = session?.user;
+
+  const handleSignout = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/Login");
+        },
+      },
+    });
+
+
+  }
 
   return (
     <header className="w-full  px-4 pt-3">
@@ -44,8 +61,12 @@ export default function Navber() {
 
           {/* Divider between links and auth buttons */}
           <div className="h-5 w-px bg-white/20" />
+          <h1 className="text-yellow-500">
+            {userSession?.name}
+          </h1>
+          <h1 className="text-red-500 cursor-pointer" onClick={handleSignout}> Sign out</h1>
 
-          <Link href="/sign-in" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors">
+          <Link href="/Login" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors">
             Sign In
           </Link>
           <Link
@@ -83,7 +104,7 @@ export default function Navber() {
           <div className="my-2 h-px bg-white/10" />
 
           <Link
-            href="/sign-in"
+            href="/Login"
             onClick={() => setOpen(false)}
             className="block rounded-lg px-3 py-2.5 text-sm font-medium text-violet-400 hover:bg-white/10 hover:text-violet-300"
           >

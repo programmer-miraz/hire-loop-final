@@ -6,7 +6,7 @@ const trendingPositions = ["Product Designer", "AI Engineering", "Dev-ops Engine
 
 export default function Banner() {
   return (
-    <section className="relative overflow-hidden bg-[#080808] py-20 md:py-28">
+    <section className="relative overflow-hidden bg-[#020204] py-20 md:py-28">
       {/* Decorative glowing dots (hidden on small screens) */}
       <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute top-1/2 left-[12%] size-1 rounded-full bg-blue-400/40" />
@@ -19,14 +19,23 @@ export default function Banner() {
       {/* Center everything inside this container */}
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center">
         {/* Badge: "50,000+ NEW JOBS THIS MONTH" */}
-        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-[#131313] py-1.5 pr-5 pl-1.5">
-          <span className="flex size-7 items-center justify-center rounded-lg bg-orange-500/15">
-            <Briefcase className="size-4 text-orange-500" />
-          </span>
-          <span className="text-sm font-bold text-white">50,000+</span>
-          <span className="font-mono text-xs tracking-widest text-neutral-400 uppercase">
-            New Jobs This Month
-          </span>
+        <div className="flex w-full items-center">
+          {/* Left Shape */}
+          <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent to-white/30 [clip-path:polygon(0_10%,100%_0,100%_100%)]" />
+
+          {/* Your Existing Content */}
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-[#131313] px-4 py-2">
+            <span className="flex size-7 items-center justify-center rounded-lg bg-orange-500/15">
+              <Briefcase className="size-4 text-orange-500" />
+            </span>
+            <span className="text-sm font-bold text-white">50,000+</span>
+            <span className="font-mono text-xs tracking-widest text-neutral-400 uppercase">
+              New Jobs This Month
+            </span>
+          </div>
+
+          {/* Right Shape */}
+          <div className="h-[2px] flex-1 bg-gradient-to-l from-transparent to-white/30 [clip-path:polygon(0_0,70%_50%,0_100%)]" />
         </div>
 
         {/* Main heading */}

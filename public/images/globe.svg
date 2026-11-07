@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 896 520" fill="none">
+  <defs>
+    <radialGradient id="ocean" cx="0.5" cy="0.1" r="1">
+      <stop offset="0" stop-color="#4b50de"/>
+      <stop offset="0.25" stop-color="#2b2ea6"/>
+      <stop offset="0.5" stop-color="#191b5c"/>
+      <stop offset="0.78" stop-color="#101126"/>
+      <stop offset="1" stop-color="#0d0d12"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0.82" stop-color="#4b50de" stop-opacity="0.55"/>
+      <stop offset="0.92" stop-color="#4b50de" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#4b50de" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+
+  <!-- glow behind the dome -->
+  <circle cx="448" cy="640" r="630" fill="url(#halo)"/>
+  <!-- globe (top dome, bottom is cut off) -->
+  <circle cx="448" cy="640" r="560" fill="url(#ocean)"/>
+
+  <!-- soft continents -->
+  <g filter="url(#soft)">
+    <path d="M300 190 q45 -70 130 -60 q80 10 65 70 q-15 55 -95 60 q-90 5 -100 -70z" fill="#b7bcdc" opacity="0.55"/>
+    <path d="M420 240 q75 -30 140 10 q55 35 25 85 q-35 55 -125 35 q-80 -20 -40 -130z" fill="#8f95bb" opacity="0.5"/>
+    <path d="M610 190 q55 -25 105 10 q40 30 12 68 q-38 45 -105 18 q-52 -25 -12 -96z" fill="#a7adce" opacity="0.42"/>
+    <path d="M130 320 q55 -35 120 -8 q50 22 18 68 q-38 50 -108 25 q-55 -22 -30 -85z" fill="#7d84ab" opacity="0.38"/>
+    <path d="M640 330 q50 -22 95 8 q35 25 10 60 q-32 40 -88 15 q-45 -20 -17 -83z" fill="#7d84ab" opacity="0.35"/>
+  </g>
+
+  <!-- bright glowing rim at the top -->
+  <ellipse cx="448" cy="95" rx="290" ry="42" fill="#7d82ff" opacity="0.75" filter="url(#soft)"/>
+  <ellipse cx="448" cy="115" rx="380" ry="55" fill="#565cf0" opacity="0.4" filter="url(#soft)"/>
+</svg>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Frontend Developer",
+    "description": "Build stunning user interfaces with React, integrate APIs, and fine-tune components to perfection.",
+    "skills": ["React", "Next.js", "Tailwind CSS", "Git"],
+    "companies": ["Meta", "Google", "Tesla"]
+  },
+  {
+    "id": 2,
+    "title": "Backend Engineer",
+    "description": "Design and maintain scalable APIs and services that power millions of daily requests.",
+    "skills": ["Node.js", "MongoDB", "Docker", "AWS"],
+    "companies": ["Netflix", "Spotify", "Uber"]
+  },
+  {
+    "id": 3,
+    "title": "UX / UI Designer",
+    "description": "Craft intuitive product experiences from simple wireframes to polished final prototypes.",
+    "skills": ["Figma", "Prototyping", "Research", "Design Systems"],
+    "companies": ["Airbnb", "Figma", "Nubank"]
+  },
+  {
+    "id": 4,
+    "title": "Data Analyst",
+    "description": "Turn raw data into clear dashboards and insights that help teams make better decisions.",
+    "skills": ["SQL", "Python", "Power BI", "Excel"],
+    "companies": ["Amazon", "Bosch", "Nestle"]
+  },
+  {
+    "id": 5,
+    "title": "DevOps Engineer",
+    "description": "Automate deployments, monitor systems, and keep production running smoothly around the clock.",
+    "skills": ["AWS", "Kubernetes", "CI / CD", "Linux"],
+    "companies": ["Microsoft", "Cloudflare", "Stripe"]
+  },
+  {
+    "id": 6,
+    "title": "Mobile Developer",
+    "description": "Build fast and beautiful mobile apps for iOS and Android at the same time with one codebase.",
+    "skills": ["React Native", "TypeScript", "Expo", "REST API"],
+    "companies": ["Duolingo", "Shopify", "Discord"]
+  }
+]

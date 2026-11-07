@@ -25,4 +25,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 - Server config: `src/lib/auth.ts`; client: `src/lib/auth-client.ts`; all auth endpoints are funneled through `src/app/api/auth/[...all]/route.ts`.
 - Secrets/URI live in `.env`: `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `MONGO_DB_CLIENT_URI` (MongoDB Atlas). Don't hardcode the connection string.
-- `mongodb` and `@better-auth/mongo-adapter` are imported in `src/lib/auth.ts` but are **not** declared in `package.json` (they resolve transitively via `better-auth`). If they stop resolving, add them to dependencies instead of relying on hoisting.
+- `mongodb` and `@better-auth/mongo-adapter` are imported in `src/lib/auth.ts` but are **not** declared in `package.json` (they resolve transitively via `better-auth`). If they stop resolving, add them to dependencies instead of relying on hoisting. `mongodb` is now a direct dependency; `@better-auth/mongo-adapter` still only resolves via hoisting — if tsc/build stops finding it, run `npm i @better-auth/mongo-adapter`.

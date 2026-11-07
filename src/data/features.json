@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "icon": "brain",
+    "title": "Smart Match",
+    "description": "AI-powered job recommendations based on your skills."
+  },
+  {
+    "id": 2,
+    "icon": "file",
+    "title": "Resume Optimizer",
+    "description": "Analyze and improve your resume for the best results."
+  },
+  {
+    "id": 3,
+    "icon": "building",
+    "title": "Company Insights",
+    "description": "Salaries, reviews and culture info before you apply."
+  },
+  {
+    "id": 4,
+    "icon": "zap",
+    "title": "Instant Apply",
+    "description": "One-click apply using your saved profile."
+  },
+  {
+    "id": 5,
+    "icon": "search",
+    "title": "Quick Filters",
+    "description": "Find jobs by role, salary and location in seconds."
+  },
+  {
+    "id": 6,
+    "icon": "bell",
+    "title": "Smart Alerts",
+    "description": "Get notified when new jobs match your profile."
+  },
+  {
+    "id": 7,
+    "icon": "message",
+    "title": "Interview Prep",
+    "description": "Practice common interview questions with helpful tips."
+  },
+  {
+    "id": 8,
+    "icon": "chart",
+    "title": "Application Tracker",
+    "description": "Follow every application in one single place."
+  },
+  {
+    "id": 9,
+    "icon": "bookmark",
+    "title": "Saved Jobs",
+    "description": "Bookmark openings and compare them later."
+  },
+  {
+    "id": 10,
+    "icon": "code",
+    "title": "Skill Insights",
+    "description": "See which skills employers want the most right now."
+  },
+  {
+    "id": 11,
+    "icon": "users",
+    "title": "Recruiter Connect",
+    "description": "Chat directly with verified recruiters."
+  },
+  {
+    "id": 12,
+    "icon": "globe",
+    "title": "Global Opportunities",
+    "description": "Remote-friendly jobs from anywhere in the world."
+  }
+]

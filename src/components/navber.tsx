@@ -9,11 +9,6 @@ import { Button } from "./ui/button";
 import { authClient } from "@/lib/auth-client";
 
 // Every link shown inside the navbar (desktop + mobile)
-const links = [
-  { label: "Browse Jobs", href: "/browse-jobs" },
-  { label: "Company", href: "/company" },
-  { label: "Pricing", href: "/pricing" },
-];
 
 // Small helper so we don't repeat the same classNames on every link
 function linkClass(extra = "") {
@@ -26,7 +21,13 @@ export default function Navber() {
   const [open, setOpen] = useState(false);
   const { data: session, isPending } = authClient.useSession();
   const userSession = session?.user;
-  console.log(userSession);
+  const links = [
+    { label: "Browse Jobs", href: "/browse-jobs" },
+    { label: "Company", href: "/company" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Deshboard", href: `/deshboard/${userSession?.role || "seeker"}` },
+  ];
+
 
   const handleSignout = async () => {
     await authClient.signOut({
@@ -56,6 +57,11 @@ export default function Navber() {
         {/* ----- Desktop menu (hidden on small screens) ----- */}
         {userSession ?
           (<div className="ml-auto hidden items-center gap-7 md:flex">
+            {links.map((link) => (
+              <Link key={link.href} href={link.href} className={linkClass()}>
+                {link.label}
+              </Link>
+            ))}
             <h1 className="text-yellow-500">
               {userSession?.name}
             </h1>
@@ -67,7 +73,6 @@ export default function Navber() {
                 {link.label}
               </Link>
             ))}
-
             {/* Divider between links and auth buttons */}
             <div className="h-5 w-px bg-white/20" />
             <Link href="/Login" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors">

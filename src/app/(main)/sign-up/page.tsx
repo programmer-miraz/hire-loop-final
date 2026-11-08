@@ -12,11 +12,14 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import RoleSelect from "@/components/role-select";
 
 
 export default function Sign_up_page() {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false);
+      /// role use
+    const [role, setRole] = useState("seeker");
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -29,12 +32,14 @@ export default function Sign_up_page() {
             name: userData.name as string,
             email: userData.email as string,
             password: userData.password as string,
+            role, // extra field saved on the user in MongoDB
             callbackURL: "/"
 
         })
         if (data) {
             console.log(data);
             router.push("/")
+            router.refresh()
         }
 
         if (error) {
@@ -153,6 +158,12 @@ export default function Sign_up_page() {
                                         </Button>
                                     </div>
                                 </div>
+                            </div>
+
+                            {/* Role picker: seeker / recruiter / admin */}
+                            <div className="flex flex-col gap-1.5">
+                                <Label className="text-neutral-400">I am a</Label>
+                                <RoleSelect value={role} onChange={setRole} />
                             </div>
 
                             {/* Main purple button */}

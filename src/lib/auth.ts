@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth";
+import { betterAuth, string } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 
@@ -12,8 +12,10 @@ export const auth = betterAuth({
     user: {
         additionalFields: {
             role: {
-                type: ["seeker","recruiter","admin"],
-                input: false
+                // the allowed values are picked in the sign-up form with the RoleSelect component
+                type: "string",
+                defaultValue: "seeker",
+                input: true, // lets the sign-up form send this field
             }
         }
     },

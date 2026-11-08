@@ -4,8 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Infinity as InfinityIcon, Menu, X } from "lucide-react";
 import Image from "next/image";
-import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { authClient } from "@/lib/auth-client";
 
 // Every link shown inside the navbar (desktop + mobile)
 const links = [
@@ -25,6 +26,7 @@ export default function Navber() {
   const [open, setOpen] = useState(false);
   const { data: session, isPending } = authClient.useSession();
   const userSession = session?.user;
+  console.log(userSession);
 
   const handleSignout = async () => {
     await authClient.signOut({
@@ -52,30 +54,32 @@ export default function Navber() {
         </Link>
 
         {/* ----- Desktop menu (hidden on small screens) ----- */}
-        <div className="ml-auto hidden items-center gap-7 md:flex">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href} className={linkClass()}>
-              {link.label}
+        {userSession ?
+          (<div className="ml-auto hidden items-center gap-7 md:flex">
+            <h1 className="text-yellow-500">
+              {userSession?.name}
+            </h1>
+            <Button className="text-red-500 cursor-pointer" onClick={handleSignout}> Sign out</Button>
+          </div>) :
+          (<div className="ml-auto hidden items-center gap-7 md:flex">
+            {links.map((link) => (
+              <Link key={link.href} href={link.href} className={linkClass()}>
+                {link.label}
+              </Link>
+            ))}
+
+            {/* Divider between links and auth buttons */}
+            <div className="h-5 w-px bg-white/20" />
+            <Link href="/Login" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors">
+              Sign In
             </Link>
-          ))}
-
-          {/* Divider between links and auth buttons */}
-          <div className="h-5 w-px bg-white/20" />
-          <h1 className="text-yellow-500">
-            {userSession?.name}
-          </h1>
-          <h1 className="text-red-500 cursor-pointer" onClick={handleSignout}> Sign out</h1>
-
-          <Link href="/Login" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors">
-            Sign In
-          </Link>
-          <Link
-            href="/get-started"
-            className="flex h-9 items-center rounded-full bg-violet-600 px-5 text-sm font-medium text-white hover:bg-violet-500 transition-colors"
-          >
-            Get Started
-          </Link>
-        </div>
+            <Link
+              href="/get-started"
+              className="flex h-9 items-center rounded-full bg-violet-600 px-5 text-sm font-medium text-white hover:bg-violet-500 transition-colors"
+            >
+              Get Started
+            </Link>
+          </div>)}
 
         {/* ----- Mobile hamburger button (hidden on md screens and up) ----- */}
         <button
@@ -94,8 +98,10 @@ export default function Navber() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={() => setOpen(false)} // close the menu after clicking
-              className={linkClass("block rounded-lg px-3 py-2.5 hover:bg-white/10")}
+              onClick={() => setOpen(false)}
+              className={linkClass(
+                "block rounded-lg px-3 py-2.5 hover:bg-white/10"
+              )}
             >
               {link.label}
             </Link>
@@ -103,22 +109,41 @@ export default function Navber() {
 
           <div className="my-2 h-px bg-white/10" />
 
-          <Link
-            href="/Login"
-            onClick={() => setOpen(false)}
-            className="block rounded-lg px-3 py-2.5 text-sm font-medium text-violet-400 hover:bg-white/10 hover:text-violet-300"
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/get-started"
-            onClick={() => setOpen(false)}
-            className="mt-2 flex h-10 items-center justify-center rounded-full bg-violet-600 text-sm font-medium text-white hover:bg-violet-500"
-          >
-            Get Started
-          </Link>
+          {userSession ? (
+            <>
+              <p className="px-3 py-2 text-sm font-medium text-white">
+                {userSession?.name}
+              </p>
+
+              <button
+                onClick={handleSignout}
+                className="mt-2 w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-400 hover:bg-white/10"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/Login"
+                onClick={() => setOpen(false)}
+                className="block rounded-lg px-3 py-2.5 text-sm font-medium text-violet-400 hover:bg-white/10 hover:text-violet-300"
+              >
+                Sign In
+              </Link>
+
+              <Link
+                href="/get-started"
+                onClick={() => setOpen(false)}
+                className="mt-2 flex h-10 items-center justify-center rounded-full bg-violet-600 text-sm font-medium text-white hover:bg-violet-500"
+              >
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
       )}
+
     </header>
   );
 }

@@ -25,11 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-[#020204]">
-        <Navber />
-        <main>
           {children}
-        </main>
-
       </body>
     </html>
   );

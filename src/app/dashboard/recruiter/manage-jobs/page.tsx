@@ -10,6 +10,7 @@ import {
     MapPin,
     Users,
     Pencil,
+    Briefcase,
     Trash2,
     Ellipsis,
     Plus,
@@ -17,8 +18,9 @@ import {
 } from "lucide-react";
 import { getAllJobs } from "@/lib/api/jobs";
 import Link from "next/link";
-type Job = {
-    _id?: string;
+import { DeleteDialogJob } from "@/deshbord-components/jobDelete";
+export type Job = {
+    _id: string;
     title: string;
     department: string;
     icon: string;
@@ -36,18 +38,18 @@ type Job = {
 const icons = {
     Code2,
     PenTool,
-   ServerCog,
+    ServerCog,
     Megaphone,
     FlaskConical,
 };
 
 function JobIcon({ job }: { job: Job }) {
-        const Icon = icons[job.icon as keyof typeof icons];
+    const Icon = icons[job.icon as keyof typeof icons] || Briefcase;
     return (
-          <div
+        <div
             className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${job.iconBg}`}
         >
-   <Icon className={`size-4 ${job.iconColor}`} />
+            <Icon className={`size-4 ${job.iconColor}`} />
         </div>
     );
 }
@@ -60,19 +62,15 @@ function StatusBadge({ status }: { status: string }) {
             className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs ${isActive
                 ? "bg-emerald-500/10 text-emerald-400"
                 : "bg-white/5 text-gray-400"
-                }`}
-        >
-            <span
-                className={`size-1.5 rounded-full ${isActive ? "bg-emerald-400" : "bg-gray-500"
-                    }`}
-            />
+                }`} >
+            <span className={`size-1.5 rounded-full ${isActive ? "bg-emerald-400" : "bg-gray-500"}`} />
             {status}
         </span>
     );
 }
 
 // Update / Delete / More buttons (used in both layouts)
-function ActionButtons({ job }: { job: Job }) {
+function ActionButtons({ job, onDeleteSuccess }: { job: Job, onDeleteSuccess: (id: string) => void }) {
 
     return (
         <div className="flex items-center gap-1">
@@ -87,12 +85,7 @@ function ActionButtons({ job }: { job: Job }) {
             </button>
 
             {/* Delete button */}
-            <button
-                onClick={() => console.log("Delete job", job._id)}
-                className="rounded-lg p-2 text-gray-500 transition hover:bg-white/5 hover:text-red-400"
-            >
-                <Trash2 className="size-4" />
-            </button>
+            <DeleteDialogJob onDeleteSuccess={onDeleteSuccess} job={job}></DeleteDialogJob>
 
             {/* More options (three dots) */}
             <button className="rounded-lg p-2 text-gray-500 transition hover:bg-white/5 hover:text-white">
@@ -108,7 +101,7 @@ function ActionButtons({ job }: { job: Job }) {
 
 const NewJobs_page = () => {
     /// use client thaker karone promise function ke useEffect kora hoice
-    const [jobs, setjobs] = useState<Job[]>([])
+    const [jobs, setjobs] = useState<Job[]>([]) || Briefcase;
     useEffect(() => {
         const getJobs = async () => {
             const data = await getAllJobs()
@@ -142,7 +135,7 @@ const NewJobs_page = () => {
 
                 {/* Purple "New Job Post" button — full width on mobile, auto on larger screens */}
                 <Link
-                    href="/dashboard/recruiter/add-new-jobs"
+                    href="/dashboard/recruiter/new-jobs"
                     className="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500/80 sm:w-auto"
                 >
                     <Plus className="size-4" />
@@ -260,7 +253,10 @@ const NewJobs_page = () => {
                                 {/* Action buttons (always visible) */}
                                 <td className="px-3 py-3 sm:px-4">
                                     <div className="flex justify-end">
-                                        <ActionButtons job={job} />
+                                        {/* //delete clint componnet router refreshe */}
+                                        <ActionButtons onDeleteSuccess={(id) => {
+                                            setjobs((prev) => prev.filter((item) => item._id !== id));
+                                        }} job={job} />
                                     </div>
                                 </td>
                             </tr>
@@ -327,7 +323,9 @@ const NewJobs_page = () => {
 
                         {/* Action buttons */}
                         <div className="mt-4 border-t border-white/10 pt-3">
-                            <ActionButtons job={job} />
+                            <ActionButtons onDeleteSuccess={(id) => {
+                                setjobs((prev) => prev.filter((item) => item._id !== id));
+                            }} job={job} />
                         </div>
                     </div>
                 ))}

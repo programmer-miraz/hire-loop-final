@@ -25,7 +25,7 @@ export default function Navber() {
     { label: "Browse Jobs", href: "/browse-jobs" },
     { label: "Company", href: "/company" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Deshboard", href: `/deshboard/${userSession?.role || "seeker"}` },
+    { label: "Deshboard", href: `/dashboard/${userSession?.role || "seeker"}` },
   ];
 
 

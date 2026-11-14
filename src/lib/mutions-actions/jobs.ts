@@ -30,3 +30,19 @@ export const createJobs = async (data: JobData) => {
 
 }
 
+// recuiter job data delete
+export const jobDataDelete = async (jobId: string) => {
+    const res = await fetch(`${BASE_URL}/jobs/${jobId}`,{
+        method: "DELETE",
+    });
+      const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || "Delete failed");
+    }
+
+    return data;
+
+
+};
+

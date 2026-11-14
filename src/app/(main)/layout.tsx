@@ -1,5 +1,4 @@
 import Navber from "@/components/navber";
-
 export default function MainLayout({
   children,
 }: {
@@ -9,6 +8,7 @@ export default function MainLayout({
     <>
       <Navber />
       <main className="flex-1">
+
         {children}
       </main>
     </>

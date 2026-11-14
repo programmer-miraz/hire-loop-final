@@ -1,6 +1,4 @@
 "use client"; // Needed because this page uses useState (interactivity)
-
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,7 +9,11 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { createJobs } from "@/lib/actions/jobs";
+import { createJobs } from "@/lib/mutions-actions/jobs";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+
 
 export type JobData = {
     jobTitle: string;
@@ -25,6 +27,7 @@ export type JobData = {
 };
 
 const NewJobs_page = () => {
+    const router = useRouter()
 
     // 3) Runs when the user clicks "Post Job"
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -32,8 +35,8 @@ const NewJobs_page = () => {
         const formdata = new FormData(event.currentTarget);
         const data = Object.fromEntries(formdata.entries()) as JobData;
         await createJobs(data)
-
-
+        toast.success("success")
+        router.push("/dashboard/recruiter/manage-jobs")
 
     };
 
@@ -170,14 +173,14 @@ const NewJobs_page = () => {
                             {/* type="button" + onClick = clear the form without submitting */}
                             <Button
                                 type="button"
-                                className="text-black hover:text-black bg-gray-50"
+                                className="text-black hover:text-black cursor-pointer bg-gray-50"
 
                             >
                                 Clear
                             </Button>
 
                             {/* type="submit" triggers handleSubmit above */}
-                            <Button type="submit">Post Job</Button>
+                            <Button className="cursor-pointer" type="submit">Post Job</Button>
                         </div>
                     </form>
                 </CardContent>

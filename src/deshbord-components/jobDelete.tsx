@@ -31,7 +31,7 @@ export function DeleteDialogJob({ job, onDeleteSuccess }: { job: Job, onDeleteSu
             setOpen(false)
             toast.success("delete successfull!")
             onDeleteSuccess(job._id)
-            router.refresh()
+           
         }
         router.refresh()
 

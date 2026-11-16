@@ -100,7 +100,7 @@ function FilterSection({ title }: { title: string; }) {
         const params = new URLSearchParams(searchParams.toString());
 
         if (type === selectedType) {
-            params.delete("type");           
+            params.delete("type");
         } else {
             params.set("type", type);
         }
@@ -184,19 +184,17 @@ const statusStyles: Record<string, string> = {
 };
 
 export function JobCard({ job }: { job: JobFromdata }) {
-    // saved = bookmark toggle (visual only, no search/filter change)
+    const router = useRouter()
     const [saved, setSaved] = useState(false);
-
-    // Pick the right icon: the API sends a NAME like "Code2",
-    // we turn it into a real icon, with Briefcase as fallback.
     const Icon = icons[job.icon as keyof typeof icons] || Briefcase;
-
-    // Pick the status pill color (gray if the status is unknown)
     const statusClass =
         statusStyles[job.status] || "border-white/10 bg-white/5 text-gray-400";
+    const handleJobDetails = (jobID: string) => {
+        router.push(`/browse-jobs/${jobID}`)
+    }
 
     return (
-        <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition hover:border-white/20">
+        <div onClick={() => handleJobDetails(job._id)} className="rounded-xl cursor-pointer border border-white/10 bg-white/[0.02] p-4 transition hover:border-white/20">
             <div className="flex items-start justify-between gap-3">
                 {/* Icon + title + company line */}
                 <div className="flex items-center gap-3">

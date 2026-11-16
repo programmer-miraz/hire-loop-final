@@ -7,35 +7,39 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
+import { useSearchParams } from "next/navigation";
 type UserData = {
     email: string;
     password: string;
 };
 
-export default function Login_page() {
+function Login_page() {
     const [showPassword, setShowPassword] = useState(false);
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirectTo") ?? "/";
+
+
     const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const userData = Object.fromEntries(formData.entries()) as UserData
-        
         const { data, error } = await authClient.signIn.email({
             ...userData,
-            callbackURL: "/"
+            callbackURL: redirectTo
         })
         if (data) {
-            console.log(data);
+            toast.success("login successfully!")
         }
 
         if (error) {
-            console.log(error);
+            toast.error("error")
         }
 
     }
-    
+
     const handleGoogleLogin = async () => {
         const { data, error } = await authClient.signIn.social({
             provider: "google",
@@ -172,3 +176,13 @@ export default function Login_page() {
         </div>
     );
 }
+const LoginPage = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Login_page />
+        </Suspense>
+    );
+};
+//saguwala@mailinator.com
+//12345678Mi
+export default LoginPage;

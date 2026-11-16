@@ -1,4 +1,4 @@
-import { getAllJobs } from "@/lib/api/jobs";
+
 import { Suspense } from "react";
 import {
     Wallet,
@@ -17,14 +17,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { JobFromdata } from "../page";
+import { getJobDetails } from "@/lib/api/jobs";
+import { useSession } from "@/lib/auth-client";
+import ApplyNow from "./applyNow";
 
-// ==================================================================
-// DUMMY DETAILS
-// The API only sends the common JobFromdata fields (title, company,
-// location, type, compensation...). These extra sections use
-// placeholder content for now — replace them with real fields when
-// your backend sends them.
-// ==================================================================
+
 
 const DETAILS = {
     experience: "5+ Years",
@@ -97,9 +94,7 @@ function BulletPoint({ children }: { children: React.ReactNode }) {
 
 const JobDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params;
-    const jobs: JobFromdata[] = await getAllJobs();
-    const job = Array.isArray(jobs) ? jobs.find((j) => j._id === id) : undefined;
-
+    const job: JobFromdata = await getJobDetails(id);
 
     if (!job) {
         return (
@@ -144,9 +139,7 @@ const JobDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
                     >
                         <Bookmark className="size-4" />
                     </button>
-                    <Button className="bg-white text-black hover:bg-gray-200">
-                        Apply Now
-                    </Button>
+                    <ApplyNow job={job}></ApplyNow>
                 </div>
             </div>
 

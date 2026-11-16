@@ -8,7 +8,13 @@ export type JobData = {
     skills: string;
     description: string;
 };
-
+type ApplicationData = {
+    userID: string;
+    email: string;
+    jobID: string;
+    jobTitle: string;
+    company: string;
+};
 
 /// from add new jobs --- new-jobs-folder
 const BASE_URL = process.env.NEXT_PUBLIC_BETTER_AUTH
@@ -32,10 +38,10 @@ export const createJobs = async (data: JobData) => {
 
 // recuiter job data delete
 export const jobDataDelete = async (jobId: string) => {
-    const res = await fetch(`${BASE_URL}/jobs/${jobId}`,{
+    const res = await fetch(`${BASE_URL}/jobs/${jobId}`, {
         method: "DELETE",
     });
-      const data = await res.json();
+    const data = await res.json();
 
     if (!res.ok) {
         throw new Error(data.message || "Delete failed");
@@ -46,3 +52,16 @@ export const jobDataDelete = async (jobId: string) => {
 
 };
 
+
+/// application user job apply korbe 
+export const applyToJob = async (data:ApplicationData) => {
+    const res = await fetch(`${BASE_URL}/application`, {
+        method: "POST",
+        headers: {
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify(data)
+
+    })
+    return res.json()
+}
